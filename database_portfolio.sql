@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 21, 2025 at 07:37 PM
+-- Generation Time: Dec 21, 2025 at 09:07 PM
 -- Server version: 10.6.23-MariaDB-cll-lve-log
 -- PHP Version: 8.4.16
 
@@ -38,8 +38,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `username`, `password`) VALUES
-(5, 'admin', '$2b$10$7qQyYpYwYcM1h5Zk3tQF7uYkQh0ZyFhYwYbYpYwYcM1h5Zk3tQF7u
-');
+(5, 'admin', '$2y$10$M57lyL7cqf7Pq9t3dkE.juK2RktTIiqG0JdUZio0/F9NpLstMyw1W');
 
 -- --------------------------------------------------------
 
