@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4 text-slate-200">
+
+    <div
+        class="w-full max-w-md bg-slate-800/80 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 overflow-hidden">
+
+        <div class="p-8 text-center border-b border-slate-700">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-600/20 mb-4">
+                <i class="fas fa-user-shield text-3xl text-blue-500"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white">Welcome Back</h2>
+            <p class="text-slate-400 text-sm mt-2">Masuk untuk mengelola portfolio Anda</p>
+        </div>
+
+        <div id="error-message"
+            class="hidden bg-red-500/10 border-l-4 border-red-500 text-red-400 p-4 text-sm mx-8 mt-6">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <span id="error-text">Login gagal</span>
+        </div>
+
+        <form id="login-form" class="p-8 pt-6">
+            <div class="mb-5">
+                <label class="block text-slate-400 text-xs font-bold mb-2 uppercase tracking-wider">Username</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input type="text" name="username" id="username"
+                        class="w-full bg-slate-900/50 text-white border border-slate-600 rounded-lg py-3 pl-10 pr-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-slate-600"
+                        placeholder="Username Anda" required>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-slate-400 text-xs font-bold mb-2 uppercase tracking-wider">Password</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="password"
+                        class="w-full bg-slate-900/50 text-white border border-slate-600 rounded-lg py-3 pl-10 pr-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-slate-600"
+                        placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span id="btn-text">Masuk Dashboard</span>
+                <i id="btn-spinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                <i class="fas fa-arrow-right ml-2" id="btn-arrow"></i>
+            </button>
+        </form>
+
+        <div class="bg-slate-900/50 p-4 text-center text-xs text-slate-500 border-t border-slate-700">
+            &copy; 2025 Creative Portfolio Admin System
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+
+        // Check if already logged in
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            const btnArrow = document.getElementById('btn-arrow');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnSpinner.classList.remove('hidden');
+            btnArrow.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Login gagal');
+                }
+
+                // Store token and redirect
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('admin_username', data.username);
+                window.location.href = 'index.html';
+
+            } catch (error) {
+                errorText.textContent = error.message;
+                errorMessage.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                btnSpinner.classList.add('hidden');
+                btnArrow.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>

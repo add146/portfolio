@@ -1,0 +1,23 @@
+{
+  "name": "portfolio-cloudflare",
+  "version": "1.0.0",
+  "description": "Portfolio website on Cloudflare Pages with D1 and R2",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev ./public --compatibility-date=2024-01-01 --binding JWT_SECRET=dev-secret-key",
+    "dev:with-db": "wrangler pages dev ./public --d1=DB --r2=UPLOADS --compatibility-date=2024-01-01 --binding JWT_SECRET=dev-secret-key",
+    "deploy": "wrangler pages deploy ./public",
+    "db:migrate": "wrangler d1 execute portfolio-db --local --file=./src/db/schema.sql",
+    "db:seed": "wrangler d1 execute portfolio-db --local --file=./src/db/seed.sql",
+    "db:migrate:remote": "wrangler d1 execute portfolio-db --file=./src/db/schema.sql",
+    "db:seed:remote": "wrangler d1 execute portfolio-db --file=./src/db/seed.sql"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.0",
+    "wrangler": "^3.22.0"
+  }
+}

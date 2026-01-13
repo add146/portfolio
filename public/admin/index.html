@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white flex flex-col fixed h-full overflow-y-auto z-10">
+        <div class="p-6 text-2xl font-bold border-b border-gray-700">My Admin</div>
+        <div id="admin-greeting" class="p-4 text-xs text-gray-400">Halo, Admin</div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="#" data-tab="profile" class="tab-link block p-3 rounded hover:bg-gray-700 bg-blue-600"><i
+                    class="fas fa-user w-6"></i> Profil & Sosmed</a>
+            <a href="#" data-tab="experience" class="tab-link block p-3 rounded hover:bg-gray-700"><i
+                    class="fas fa-briefcase w-6"></i> Pengalaman</a>
+            <a href="#" data-tab="education" class="tab-link block p-3 rounded hover:bg-gray-700"><i
+                    class="fas fa-graduation-cap w-6"></i> Pendidikan</a>
+            <a href="#" data-tab="skills" class="tab-link block p-3 rounded hover:bg-gray-700"><i
+                    class="fas fa-code w-6"></i> Skills</a>
+            <a href="#" data-tab="projects" class="tab-link block p-3 rounded hover:bg-gray-700"><i
+                    class="fas fa-layer-group w-6"></i> Projects</a>
+            <a href="#" data-tab="articles" class="tab-link block p-3 rounded hover:bg-gray-700"><i
+                    class="fas fa-newspaper w-6"></i> Blog / Artikel</a>
+
+            <hr class="border-gray-700 my-4">
+            <a href="../index.html" target="_blank" class="block p-3 rounded text-green-400 hover:bg-gray-700 mt-10"><i
+                    class="fas fa-eye w-6"></i> Lihat Web</a>
+            <a href="#" id="logout-btn" class="block p-3 rounded text-red-400 hover:bg-gray-700"><i
+                    class="fas fa-sign-out-alt w-6"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10 ml-64">
+        <!-- Profile Tab -->
+        <div id="tab-profile" class="tab-content">
+            <h2 class="text-3xl font-bold mb-6">Edit Profil & Tampilan Utama</h2>
+
+            <form id="profile-form"
+                class="bg-white p-6 rounded shadow-md space-y-6 max-w-3xl border-l-4 border-blue-500">
+                <div class="space-y-4 pb-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">1. Tampilan Halaman Depan (Hero)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold mb-1 text-sm text-gray-600">Judul Website</label>
+                            <input type="text" name="site_title" class="w-full border p-2 rounded bg-gray-50">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1 text-sm text-gray-600">Role Utama</label>
+                            <input type="text" name="hero_role" class="w-full border p-2 rounded bg-gray-50">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1 text-sm text-gray-600">Teks Badge Status</label>
+                            <input type="text" name="availability_text" class="w-full border p-2 rounded bg-gray-50">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1 text-sm text-gray-600">Limit Project</label>
+                            <input type="number" name="projects_limit" class="w-full border p-2 rounded bg-gray-50"
+                                value="6">
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded border border-dashed border-gray-400 mt-2">
+                        <label class="block font-bold mb-2 text-sm text-gray-600">Gambar 3D Utama</label>
+                        <img id="hero-image-preview" src="" class="h-16 mb-2 hidden">
+                        <input type="file" name="hero_image_file" id="hero-image-file" class="w-full text-sm"
+                            accept="image/*">
+                        <input type="text" name="hero_image_url" placeholder="Atau URL..."
+                            class="w-full border p-1 mt-2 text-sm">
+                    </div>
+                </div>
+
+                <div class="space-y-4 pb-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">2. Informasi Pribadi</h3>
+                    <div><label class="block font-bold mb-1 text-sm text-gray-600">Nama Lengkap</label><input
+                            type="text" name="name" class="w-full border p-2 rounded"></div>
+                    <div><label class="block font-bold mb-1 text-sm text-gray-600">Bio Singkat</label><textarea
+                            name="bio" class="w-full border p-2 rounded h-24"></textarea></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block font-bold mb-1 text-sm text-gray-600">Alamat</label><input type="text"
+                                name="address" class="w-full border p-2 rounded"></div>
+                        <div><label class="block font-bold mb-1 text-sm text-gray-600">WhatsApp</label><input
+                                type="text" name="whatsapp" class="w-full border p-2 rounded"></div>
+                    </div>
+                    <div><label class="block font-bold mb-1 text-sm text-gray-600">Email</label><input type="email"
+                            name="email" class="w-full border p-2 rounded"></div>
+                </div>
+
+                <div class="space-y-4 pb-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">3. Social Media Link</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input name="link_github" class="border p-2 rounded" placeholder="GitHub URL">
+                        <input name="link_linkedin" class="border p-2 rounded" placeholder="LinkedIn URL">
+                        <input name="link_instagram" class="border p-2 rounded" placeholder="Instagram URL">
+                        <input name="link_facebook" class="border p-2 rounded" placeholder="Facebook URL">
+                        <input name="link_youtube" class="border p-2 rounded" placeholder="YouTube URL">
+                        <input name="link_tiktok" class="border p-2 rounded" placeholder="TikTok URL">
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">4. Teks Lainnya</h3>
+                    <div><label class="block font-bold mb-1 text-sm text-gray-600">Deskripsi Project</label><textarea
+                            name="projects_desc" class="w-full border p-2 rounded h-20"></textarea></div>
+                    <div><label class="block font-bold mb-1 text-sm text-gray-600">Deskripsi Kontak</label><textarea
+                            name="contact_desc" class="w-full border p-2 rounded h-20"></textarea></div>
+                </div>
+
+                <button type="submit"
+                    class="bg-blue-600 text-white px-6 py-3 rounded font-bold hover:bg-blue-700 transition w-full">Simpan
+                    Profil</button>
+            </form>
+
+            <!-- Account Security -->
+            <div class="mt-10 pt-10 border-t border-gray-300">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800"><i class="fas fa-shield-alt mr-2 text-red-500"></i>
+                    Keamanan Akun</h3>
+                <form id="account-form" class="bg-red-50 p-6 rounded shadow-md border border-red-200 max-w-3xl">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div><label class="block font-bold mb-2 text-sm text-gray-700">Username Baru</label><input
+                                type="text" name="new_username" class="w-full border p-2 rounded"></div>
+                        <div><label class="block font-bold mb-2 text-sm text-gray-700">Password Baru</label><input
+                                type="password" name="new_password" placeholder="Isi jika ingin ganti"
+                                class="w-full border p-2 rounded"></div>
+                    </div>
+                    <button type="submit"
+                        class="mt-4 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 font-bold">Update
+                        Akun</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Experience Tab -->
+        <div id="tab-experience" class="tab-content hidden">
+            <h2 class="text-3xl font-bold mb-6">Kelola Pengalaman Kerja</h2>
+            <form id="experience-form"
+                class="bg-white p-6 rounded shadow mb-8 grid grid-cols-2 gap-4 border-l-4 border-blue-500">
+                <input type="hidden" name="id">
+                <div class="col-span-2 font-bold text-lg mb-2">Tambah Data Baru</div>
+                <input name="role" placeholder="Posisi" class="border p-2 rounded" required>
+                <input name="company" placeholder="Nama Perusahaan" class="border p-2 rounded" required>
+                <input name="year_range" placeholder="Tahun (e.g. 2020 - 2023)" class="border p-2 rounded" required>
+                <textarea name="description" placeholder="Deskripsi..."
+                    class="border p-2 rounded col-span-2 h-32"></textarea>
+                <div class="col-span-2 flex gap-2">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">Simpan Data</button>
+                    <button type="button" onclick="resetForm('experience-form')"
+                        class="bg-gray-500 text-white px-6 py-2 rounded hidden" id="cancel-experience">Batal</button>
+                </div>
+            </form>
+            <div id="experience-list" class="space-y-4"></div>
+        </div>
+
+        <!-- Education Tab -->
+        <div id="tab-education" class="tab-content hidden">
+            <h2 class="text-3xl font-bold mb-6">Kelola Pendidikan</h2>
+            <form id="education-form"
+                class="bg-white p-6 rounded shadow mb-8 flex flex-col gap-4 border-l-4 border-blue-500">
+                <input type="hidden" name="id">
+                <div class="font-bold">Tambah Data Baru</div>
+                <div class="flex gap-4">
+                    <input name="school_name" placeholder="Nama Sekolah/Univ" class="border p-2 rounded flex-1"
+                        required>
+                    <input name="degree" placeholder="Jurusan/Gelar" class="border p-2 rounded flex-1" required>
+                    <input name="year_range" placeholder="Tahun" class="border p-2 rounded w-32" required>
+                </div>
+                <div class="flex gap-2">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+                    <button type="button" onclick="resetForm('education-form')"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hidden" id="cancel-education">Batal</button>
+                </div>
+            </form>
+            <ul id="education-list" class="bg-white rounded shadow divide-y"></ul>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="tab-skills" class="tab-content hidden">
+            <h2 class="text-3xl font-bold mb-6">Kelola Skill</h2>
+            <form id="skills-form"
+                class="bg-white p-6 rounded shadow mb-8 flex flex-col gap-4 border-l-4 border-blue-500">
+                <input type="hidden" name="id">
+                <div class="font-bold">Tambah Skill</div>
+                <div class="flex gap-4">
+                    <input name="skill_name" placeholder="Nama Skill" class="border p-2 rounded flex-1" required>
+                    <input name="icon_url" placeholder="URL Icon" class="border p-2 rounded flex-1">
+                </div>
+                <div class="flex gap-2">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+                    <button type="button" onclick="resetForm('skills-form')"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hidden" id="cancel-skills">Batal</button>
+                </div>
+            </form>
+            <div id="skills-list" class="grid grid-cols-4 gap-4"></div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="tab-projects" class="tab-content hidden">
+            <h2 class="text-3xl font-bold mb-6">Kelola Project</h2>
+            <form id="projects-form"
+                class="bg-white p-6 rounded shadow mb-8 grid grid-cols-12 gap-4 border-l-4 border-blue-500">
+                <input type="hidden" name="id">
+                <div class="col-span-12 font-bold">Tambah Project Baru</div>
+                <input name="title" placeholder="Judul Project" class="border p-2 rounded col-span-6" required>
+                <input type="number" name="display_order" placeholder="Urutan"
+                    class="border p-2 rounded col-span-2 text-center" value="0">
+                <input name="link_url" placeholder="Link Demo" class="border p-2 rounded col-span-4">
+                <div class="col-span-12 bg-gray-50 p-4 rounded border border-dashed border-gray-400">
+                    <label class="block font-bold mb-2 text-sm text-gray-600">Gambar Project</label>
+                    <img id="project-image-preview" src=""
+                        class="h-20 w-32 object-cover border bg-white rounded shadow-sm mb-3 hidden">
+                    <input type="file" name="project_image_file" id="project-image-file"
+                        class="w-full border p-2 rounded bg-white" accept="image/*">
+                    <label class="block font-bold mt-4 mb-1 text-xs text-gray-400">Atau URL Manual:</label>
+                    <input type="text" name="image_url" placeholder="https://..."
+                        class="w-full border p-2 rounded text-sm text-gray-500">
+                </div>
+                <textarea name="description" placeholder="Deskripsi Singkat..."
+                    class="border p-2 rounded col-span-12 h-20"></textarea>
+                <textarea name="details" placeholder="Case Study (Detail Lengkap)..."
+                    class="border p-2 rounded col-span-12 h-40"></textarea>
+                <div class="col-span-12 flex gap-2">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">Simpan</button>
+                    <button type="button" onclick="resetForm('projects-form')"
+                        class="bg-gray-500 text-white px-6 py-2 rounded hidden" id="cancel-projects">Batal</button>
+                </div>
+            </form>
+            <div id="projects-list" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- Articles Tab -->
+        <div id="tab-articles" class="tab-content hidden">
+            <h2 class="text-3xl font-bold mb-6">Kelola Blog / Artikel</h2>
+            <form id="articles-form" class="bg-white p-6 rounded shadow mb-8 border-l-4 border-blue-500">
+                <input type="hidden" name="id">
+                <div class="font-bold mb-4 text-xl">Tulis Artikel Baru</div>
+
+                <input name="title" class="border p-2 rounded w-full mb-4" placeholder="Judul Artikel" required>
+
+                <div class="bg-gray-50 p-4 rounded border mb-4">
+                    <label class="block font-bold text-sm mb-2">Gambar Cover</label>
+                    <img id="article-image-preview" src="" class="h-24 mb-2 object-cover hidden">
+                    <input type="file" name="article_image_file" id="article-image-file" class="w-full text-sm"
+                        accept="image/*">
+                    <input type="text" name="image_url" placeholder="Atau URL gambar..."
+                        class="w-full border p-2 rounded mt-2 text-sm">
+                </div>
+
+                <textarea name="content" class="border p-2 rounded w-full h-64 mb-4"
+                    placeholder="Tulis isi artikel disini..."></textarea>
+
+                <div class="flex gap-2">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">Simpan Artikel</button>
+                    <button type="button" onclick="resetForm('articles-form')"
+                        class="bg-gray-500 text-white px-6 py-2 rounded hidden" id="cancel-articles">Batal</button>
+                </div>
+            </form>
+
+            <div id="articles-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="toast-message">Berhasil disimpan!</span>
+    </div>
+
+    <script>
+        // ====================================
+        // Configuration
+        // ====================================
+        const API_BASE = '/api';
+        let currentTab = 'profile';
+
+        // ====================================
+        // Auth Check
+        // ====================================
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        const adminUsername = localStorage.getItem('admin_username') || 'Admin';
+        document.getElementById('admin-greeting').textContent = `Halo, ${adminUsername}`;
+
+        // ====================================
+        // API Helper
+        // ====================================
+        async function api(endpoint, method = 'GET', data = null) {
+            const options = {
+                method,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            if (data && method !== 'GET') {
+                options.body = JSON.stringify(data);
+            }
+
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+
+            if (response.status === 401) {
+                localStorage.removeItem('auth_token');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            return response.json();
+        }
+
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch(`${API_BASE}/admin/upload`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            return response.json();
+        }
+
+        // ====================================
+        // Toast Notification
+        // ====================================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+
+            toast.className = `fixed bottom-4 right-4 ${isError ? 'bg-red-500' : 'bg-green-500'} text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-0 opacity-100 transition-all duration-300 z-50`;
+            toastMessage.textContent = message;
+
+            setTimeout(() => {
+                toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50';
+            }, 3000);
+        }
+
+        // ====================================
+        // Tab Navigation
+        // ====================================
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const tab = this.getAttribute('data-tab');
+                switchTab(tab);
+            });
+        });
+
+        function switchTab(tab) {
+            currentTab = tab;
+
+            // Update active tab style
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.classList.remove('bg-blue-600');
+            });
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('bg-blue-600');
+
+            // Show/hide content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+
+            // Load data for tab
+            loadTabData(tab);
+        }
+
+        async function loadTabData(tab) {
+            switch (tab) {
+                case 'profile':
+                    await loadProfile();
+                    break;
+                case 'experience':
+                    await loadExperience();
+                    break;
+                case 'education':
+                    await loadEducation();
+                    break;
+                case 'skills':
+                    await loadSkills();
+                    break;
+                case 'projects':
+                    await loadProjects();
+                    break;
+                case 'articles':
+                    await loadArticles();
+                    break;
+            }
+        }
+
+        // ====================================
+        // Profile
+        // ====================================
+        async function loadProfile() {
+            const profile = await api('/public/profile');
+            if (!profile) return;
+
+            const form = document.getElementById('profile-form');
+            for (const key in profile) {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) {
+                    input.value = profile[key] || '';
+                }
+            }
+
+            if (profile.hero_image_url) {
+                const preview = document.getElementById('hero-image-preview');
+                preview.src = profile.hero_image_url;
+                preview.classList.remove('hidden');
+            }
+
+            // Set username in account form
+            document.querySelector('#account-form [name="new_username"]').value = adminUsername;
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+
+            // Handle file upload
+            const fileInput = document.getElementById('hero-image-file');
+            if (fileInput.files[0]) {
+                const result = await uploadFile(fileInput.files[0]);
+                if (result.url) {
+                    data.hero_image_url = result.url;
+                }
+            }
+
+            for (const [key, value] of formData.entries()) {
+                if (key !== 'hero_image_file') {
+                    data[key] = value;
+                }
+            }
+
+            await api('/admin/profile', 'PUT', data);
+            showToast('Profil berhasil disimpan!');
+        });
+
+        document.getElementById('account-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+
+            if (formData.get('new_username')) data.new_username = formData.get('new_username');
+            if (formData.get('new_password')) data.new_password = formData.get('new_password');
+
+            if (Object.keys(data).length === 0) {
+                showToast('Tidak ada perubahan', true);
+                return;
+            }
+
+            await api('/admin/account', 'PUT', data);
+
+            if (data.new_username) {
+                localStorage.setItem('admin_username', data.new_username);
+            }
+
+            showToast('Akun berhasil diupdate!');
+        });
+
+        // ====================================
+        // Experience
+        // ====================================
+        async function loadExperience() {
+            const data = await api('/admin/experience');
+            const container = document.getElementById('experience-list');
+
+            container.innerHTML = data.map(item => `
+                <div class="bg-white p-4 rounded shadow flex justify-between items-start">
+                    <div class="w-3/4">
+                        <div class="font-bold text-lg">${item.role} @ ${item.company}</div>
+                        <div class="text-gray-500 text-sm">${item.year_range}</div>
+                        <p class="text-gray-400 text-xs mt-1 line-clamp-2">${item.description || ''}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editExperience(${item.id})" class="text-blue-500 border border-blue-200 px-3 py-1 rounded">Edit</button>
+                        <button onclick="deleteItem('experience', ${item.id})" class="text-red-500 border border-red-200 px-3 py-1 rounded">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editExperience = async function (id) {
+            const data = await api('/admin/experience');
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            const form = document.getElementById('experience-form');
+            form.querySelector('[name="id"]').value = item.id;
+            form.querySelector('[name="role"]').value = item.role || '';
+            form.querySelector('[name="company"]').value = item.company || '';
+            form.querySelector('[name="year_range"]').value = item.year_range || '';
+            form.querySelector('[name="description"]').value = item.description || '';
+            document.getElementById('cancel-experience').classList.remove('hidden');
+        };
+
+        document.getElementById('experience-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const id = formData.get('id');
+            const data = {
+                role: formData.get('role'),
+                company: formData.get('company'),
+                year_range: formData.get('year_range'),
+                description: formData.get('description'),
+            };
+
+            if (id) {
+                await api(`/admin/experience/${id}`, 'PUT', data);
+            } else {
+                await api('/admin/experience', 'POST', data);
+            }
+
+            resetForm('experience-form');
+            await loadExperience();
+            showToast('Data berhasil disimpan!');
+        });
+
+        // ====================================
+        // Education
+        // ====================================
+        async function loadEducation() {
+            const data = await api('/admin/education');
+            const container = document.getElementById('education-list');
+
+            container.innerHTML = data.map(item => `
+                <li class="p-4 flex justify-between items-center">
+                    <span><b>${item.school_name}</b> - ${item.degree} (${item.year_range})</span>
+                    <div class="flex gap-2">
+                        <button onclick="editEducation(${item.id})" class="text-blue-500 px-2">Edit</button>
+                        <button onclick="deleteItem('education', ${item.id})" class="text-red-500 px-2">Hapus</button>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        window.editEducation = async function (id) {
+            const data = await api('/admin/education');
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            const form = document.getElementById('education-form');
+            form.querySelector('[name="id"]').value = item.id;
+            form.querySelector('[name="school_name"]').value = item.school_name || '';
+            form.querySelector('[name="degree"]').value = item.degree || '';
+            form.querySelector('[name="year_range"]').value = item.year_range || '';
+            document.getElementById('cancel-education').classList.remove('hidden');
+        };
+
+        document.getElementById('education-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const id = formData.get('id');
+            const data = {
+                school_name: formData.get('school_name'),
+                degree: formData.get('degree'),
+                year_range: formData.get('year_range'),
+            };
+
+            if (id) {
+                await api(`/admin/education/${id}`, 'PUT', data);
+            } else {
+                await api('/admin/education', 'POST', data);
+            }
+
+            resetForm('education-form');
+            await loadEducation();
+            showToast('Data berhasil disimpan!');
+        });
+
+        // ====================================
+        // Skills
+        // ====================================
+        async function loadSkills() {
+            const data = await api('/admin/skills');
+            const container = document.getElementById('skills-list');
+
+            container.innerHTML = data.map(item => `
+                <div class="bg-white p-4 rounded shadow text-center relative group">
+                    <img src="${item.icon_url || ''}" class="h-10 mx-auto mb-2" onerror="this.style.display='none'">
+                    <div class="font-bold">${item.skill_name}</div>
+                    <div class="absolute inset-0 bg-black/80 hidden group-hover:flex items-center justify-center gap-3 rounded">
+                        <button onclick="editSkill(${item.id})" class="text-blue-400 font-bold">Edit</button>
+                        <button onclick="deleteItem('skills', ${item.id})" class="text-red-400 font-bold">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editSkill = async function (id) {
+            const data = await api('/admin/skills');
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            const form = document.getElementById('skills-form');
+            form.querySelector('[name="id"]').value = item.id;
+            form.querySelector('[name="skill_name"]').value = item.skill_name || '';
+            form.querySelector('[name="icon_url"]').value = item.icon_url || '';
+            document.getElementById('cancel-skills').classList.remove('hidden');
+        };
+
+        document.getElementById('skills-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const id = formData.get('id');
+            const data = {
+                skill_name: formData.get('skill_name'),
+                icon_url: formData.get('icon_url'),
+            };
+
+            if (id) {
+                await api(`/admin/skills/${id}`, 'PUT', data);
+            } else {
+                await api('/admin/skills', 'POST', data);
+            }
+
+            resetForm('skills-form');
+            await loadSkills();
+            showToast('Data berhasil disimpan!');
+        });
+
+        // ====================================
+        // Projects
+        // ====================================
+        async function loadProjects() {
+            const data = await api('/admin/projects');
+            const container = document.getElementById('projects-list');
+
+            container.innerHTML = data.map(item => `
+                <div class="bg-white p-4 rounded shadow flex flex-col h-full">
+                    <div class="text-xs bg-gray-200 w-fit px-2 rounded mb-2">Urutan: ${item.display_order}</div>
+                    <img src="${item.image_url || ''}" class="h-32 w-full object-cover rounded bg-gray-100 mb-2" onerror="this.style.display='none'">
+                    <h4 class="font-bold text-lg mb-1">${item.title}</h4>
+                    <div class="flex justify-between border-t pt-2 mt-auto">
+                        <button onclick="editProject(${item.id})" class="text-blue-500 text-sm font-bold">Edit</button>
+                        <button onclick="deleteItem('projects', ${item.id})" class="text-red-500 text-sm font-bold">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editProject = async function (id) {
+            const data = await api('/admin/projects');
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            const form = document.getElementById('projects-form');
+            form.querySelector('[name="id"]').value = item.id;
+            form.querySelector('[name="title"]').value = item.title || '';
+            form.querySelector('[name="display_order"]').value = item.display_order || 0;
+            form.querySelector('[name="link_url"]').value = item.link_url || '';
+            form.querySelector('[name="image_url"]').value = item.image_url || '';
+            form.querySelector('[name="description"]').value = item.description || '';
+            form.querySelector('[name="details"]').value = item.details || '';
+
+            if (item.image_url) {
+                const preview = document.getElementById('project-image-preview');
+                preview.src = item.image_url;
+                preview.classList.remove('hidden');
+            }
+
+            document.getElementById('cancel-projects').classList.remove('hidden');
+        };
+
+        document.getElementById('projects-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const id = formData.get('id');
+
+            // Handle file upload
+            const fileInput = document.getElementById('project-image-file');
+            let imageUrl = formData.get('image_url');
+            if (fileInput.files[0]) {
+                const result = await uploadFile(fileInput.files[0]);
+                if (result.url) {
+                    imageUrl = result.url;
+                }
+            }
+
+            const data = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                details: formData.get('details'),
+                image_url: imageUrl,
+                link_url: formData.get('link_url'),
+                display_order: parseInt(formData.get('display_order')) || 0,
+            };
+
+            if (id) {
+                await api(`/admin/projects/${id}`, 'PUT', data);
+            } else {
+                await api('/admin/projects', 'POST', data);
+            }
+
+            resetForm('projects-form');
+            await loadProjects();
+            showToast('Project berhasil disimpan!');
+        });
+
+        // ====================================
+        // Articles
+        // ====================================
+        async function loadArticles() {
+            const data = await api('/admin/articles');
+            const container = document.getElementById('articles-list');
+
+            container.innerHTML = data.map(item => `
+                <div class="bg-white p-4 rounded shadow flex gap-4 border border-gray-100">
+                    ${item.image_url ? `<img src="${item.image_url}" class="w-24 h-24 object-cover rounded bg-gray-200">` : ''}
+                    <div class="flex-1">
+                        <h4 class="font-bold text-lg leading-tight">${item.title}</h4>
+                        <p class="text-xs text-gray-500 mb-2 mt-1">${new Date(item.created_at).toLocaleDateString('id-ID')}</p>
+                        <div class="mt-2 text-sm">
+                            <button onclick="editArticle(${item.id})" class="text-blue-600 font-bold mr-2">Edit</button>
+                            <button onclick="deleteItem('articles', ${item.id})" class="text-red-600 font-bold">Hapus</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.editArticle = async function (id) {
+            const data = await api('/admin/articles');
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            const form = document.getElementById('articles-form');
+            form.querySelector('[name="id"]').value = item.id;
+            form.querySelector('[name="title"]').value = item.title || '';
+            form.querySelector('[name="content"]').value = item.content || '';
+            form.querySelector('[name="image_url"]').value = item.image_url || '';
+
+            if (item.image_url) {
+                const preview = document.getElementById('article-image-preview');
+                preview.src = item.image_url;
+                preview.classList.remove('hidden');
+            }
+
+            document.getElementById('cancel-articles').classList.remove('hidden');
+        };
+
+        document.getElementById('articles-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const id = formData.get('id');
+
+            // Handle file upload
+            const fileInput = document.getElementById('article-image-file');
+            let imageUrl = formData.get('image_url');
+            if (fileInput.files[0]) {
+                const result = await uploadFile(fileInput.files[0]);
+                if (result.url) {
+                    imageUrl = result.url;
+                }
+            }
+
+            const data = {
+                title: formData.get('title'),
+                content: formData.get('content'),
+                image_url: imageUrl,
+            };
+
+            if (id) {
+                await api(`/admin/articles/${id}`, 'PUT', data);
+            } else {
+                await api('/admin/articles', 'POST', data);
+            }
+
+            resetForm('articles-form');
+            await loadArticles();
+            showToast('Artikel berhasil disimpan!');
+        });
+
+        // ====================================
+        // Delete Item
+        // ====================================
+        window.deleteItem = async function (type, id) {
+            if (!confirm('Yakin ingin menghapus?')) return;
+
+            await api(`/admin/${type}/${id}`, 'DELETE');
+            await loadTabData(type);
+            showToast('Data berhasil dihapus!');
+        };
+
+        // ====================================
+        // Reset Form
+        // ====================================
+        window.resetForm = function (formId) {
+            const form = document.getElementById(formId);
+            form.reset();
+            form.querySelector('[name="id"]').value = '';
+
+            // Hide cancel button
+            const cancelBtn = document.getElementById(`cancel-${formId.replace('-form', '')}`);
+            if (cancelBtn) cancelBtn.classList.add('hidden');
+
+            // Hide image previews
+            document.querySelectorAll('img[id$="-preview"]').forEach(img => {
+                img.classList.add('hidden');
+            });
+        };
+
+        // ====================================
+        // Logout
+        // ====================================
+        document.getElementById('logout-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            if (confirm('Yakin ingin keluar?')) {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('admin_username');
+                window.location.href = 'login.html';
+            }
+        });
+
+        // ====================================
+        // Initialize
+        // ====================================
+        loadTabData('profile');
+    </script>
+</body>
+
+</html>
