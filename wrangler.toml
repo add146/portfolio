@@ -2,11 +2,14 @@ name = "portfolio"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "./public"
 
+[build]
+command = "npm install"
+
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-db"
-database_id = "local"  # Will be replaced after `wrangler d1 create`
+database_id = "7ffab883-11da-4aed-987f-905e3fb0da33"
 
 # R2 Storage binding
 [[r2_buckets]]
